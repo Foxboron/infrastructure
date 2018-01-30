@@ -1,0 +1,23 @@
+repo gitolite-admin 
+    -       =  gitweb daemon
+    option deny-rules = 1
+
+# User repositories
+repo users/CREATOR/[a-zA-Z0-9_\.\-]+
+    C       =   CREATOR
+    RW+     =   CREATOR
+    config gitweb.category = {{gitolite_user_desc}}
+
+# Predefined repos
+{% for category, repos in gitolite_repos.items() %}
+  {% for repo in repos %}
+
+repo {{repo.repo}}
+    RW+     = {{repo.access | default([]) | union([repo.owner]) | join(" ")}}
+    config gitweb.owner = {{arch_users[repo.owner].name}}
+    config gitweb.description = {{repo.desc}}
+    config gitweb.category = {{category}}
+  {% endfor %}
+{% endfor %}
+
+

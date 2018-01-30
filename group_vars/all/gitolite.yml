@@ -1,0 +1,304 @@
+---
+
+gitolite_user_desc: "Developer Projects"
+
+gitolite_repos:
+    "Arch Linux Projects":
+        - repo: arch-install-scripts
+          owner: dreisner
+          desc: "Official arch-install-scripts repository"
+
+        - repo: archboot
+          owner: tpowa
+          desc: "Repository for archboot"
+
+        - repo: archiso
+          owner: djgera
+          desc: "The official archiso scripts repo"
+
+        - repo: archlinux-keyring
+          owner: pierre
+          desc: "Arch Linux PGP keyring"
+
+        - repo: archweb
+          owner: dan
+          desc: "Arch website code"
+
+        # - repo: aurweb
+        #   owner: None
+        #   desc: "Arch User Repository (AUR)"
+
+        - repo: dbscripts
+          owner: pierre
+          desc: "Official repo DB scripts"
+
+        - repo: devtools
+          owner: pierre
+          desc: "The official devtools repository"
+
+        - repo: infrastructure
+          owner: svenstaro
+          desc: "Ansible is coming"
+
+        - repo: kde-build
+          owner: felixonmars
+          desc: "KDE build scripts to automate package creation and..."
+
+        - repo: mkinitcpio
+          owner: dreisner
+          desc: "The official mkinitcpio repository"
+
+        # - repo: namcap
+        #   owner: None
+        #   desc: "The official namcap repository"
+
+        - repo: netctl
+          owner: jouke
+          desc: "Network control utility based on systemd"
+
+        - repo: pacman-contrib
+          owner: demize
+          desc: "The official pacman-contrib repository"
+
+        - repo: pacman
+          owner: allan
+          desc: "The official pacman repository"
+
+        - repo: pyalpm
+          owner: jelle
+          desc: "Python 3 bindings for libalpm."
+
+        # - repo: srcpac
+        #   owner: None
+        #   desc: "The primary srcpac repository"
+
+        # - repo: svntogit/community
+        #   owner: None
+        #   desc: "Git clone of the 'community' repository"
+
+        # - repo: svntogit/packages
+        #   owner: None
+        #   desc: "Git clone of the 'packages' repository"
+
+        - repo: tu-bylaws
+          owner: lfleischer
+          desc: "Trusted User Bylaws"
+
+        - repo: wpa_actiond
+          owner: thomas
+          desc: "Daemon that connects to wpa_supplicant and handles..."
+
+    "Developer Projects":
+        - repo: users/allan/pacman
+          owner: allan
+          desc: "Allan's pacman working tree"
+
+        - repo: users/eschwartz/pacman
+          owner: eschwartz
+          desc: "Eli's pacman working tree"
+
+        - repo: users/lfleischer/cgit
+          owner: lfleischer
+          desc: "A hyperfast web frontend for git repositories writ..."
+
+        - repo: users/remy/dbscripts
+          owner: remy
+          desc: "Personal clone of dbscripts repository."
+
+        - repo: users/remy/namcap
+          owner: remy
+          desc: "Rémy's repository for namcap"
+
+        - repo: users/remy/netcfg
+          owner: remy
+          desc: "Working branch for netcfg"
+
+        - repo: users/remy/pacman
+          owner: remy
+          desc: "Rémy's working tree for pacman"
+
+        - repo: users/remy/pacweb
+          owner: remy
+          desc: "A web front-end to pacman"
+
+        - repo: users/remy/pyalpm
+          owner: remy
+          desc: "Python 3 bindings for libalpm."
+
+        - repo: users/remy/texlive-localmanager
+          owner: remy
+          desc: "A shell and command-line utility to manage TeXLive..."
+
+        - repo: users/remy/texlive-scripts
+          owner: remy
+          desc: "Collection of scripts to manage the TeXLive packag..."
+
+        - repo: users/seblu/agetpkg
+          owner: seblu
+          desc: "Arch Linux Archive Get Package"
+
+        - repo: users/seblu/ansible
+          owner: seblu
+          desc: "Deploy scripts for devops team"
+
+        - repo: users/seblu/archivetools
+          owner: seblu
+          desc: "Arch Linux Archive Tools"
+
+        - repo: users/seblu/archutils
+          owner: seblu
+          desc: "Seblu's collection of tools for Archlinux"
+
+        - repo: users/seblu/archversion
+          owner: seblu
+          desc: "Check upstream version against Archlinux packages"
+
+        - repo: users/seblu/aurbot
+          owner: seblu
+          desc: "AUR Builder Bot"
+
+        - repo: users/seblu/kernel-install-poc
+          owner: seblu
+          desc: "kernel-install poc for Arch Linux"
+
+        - repo: users/thomas/autowifi
+          owner: thomas
+          desc: "Unnamed repository; edit this file to name it for ..."
+
+        - repo: users/thomas/capchroot
+          owner: thomas
+          desc: "A tool that allows users to chroot to certain dire..."
+
+        - repo: users/thomas/capsudo
+          owner: thomas
+          desc: "A sudo-like tool to give capabilities to unprivile..."
+
+        - repo: users/thomas/cgit
+          owner: thomas
+          desc: "Clone of the upstream cgit repository, with Arch L..."
+
+        - repo: users/thomas/deinitramfs
+          owner: thomas
+          desc: "Experimental implementation of deinitramfs"
+
+        - repo: users/thomas/pkgfile2
+          owner: thomas
+          desc: "Rewrite of pkgfile in C, using libarchive directly..."
+
+        - repo: users/thomas/pkgtools
+          owner: thomas
+          desc: "Unnamed repository; edit this file 'description' t..."
+
+        - repo: users/thomas/plasma-netgraph
+          owner: thomas
+          desc: "Plasma network monitor plasmoid, based on http://w..."
+
+    "Obsolete or Dead Projects":
+        - repo: abs
+          owner: allan
+          desc: "Arch Build System scripts"
+
+        # - repo: aif
+        #   owner: None
+        #   desc: "AIF is the ArchLinux Installation Framework"
+
+        # - repo: archweb_dev
+        #   owner: None
+        #   desc: "Arch dev site code"
+
+        # - repo: archweb_pub
+        #   owner: None
+        #   desc: "Arch main website code"
+
+        - repo: initscripts
+          owner: tomegun
+          desc: "Arch Linux initscripts repository"
+
+        - repo: installer
+          owner: tpowa
+          desc: "Arch Linux install scripts and docs"
+
+        - repo: klibc-extras
+          owner: thomas
+          desc: "The official klibc-extras repository"
+
+        - repo: linux-2.6-ARCH
+          owner: thomas
+          desc: "Arch Linux kernel patch repository"
+
+        - repo: mkinitcpio-nfs-utils
+          owner: thomas
+          desc: "ipconfig and nfsmount tools for root on NFS, porte..."
+
+        # - repo: netcfg
+        #   owner: None
+        #   desc: "netcfg network scripts repository"
+
+        # - repo: pacbuild
+        #   owner: None
+        #   desc: "The official pacbuild repository"
+
+        - repo: server-misc
+          owner: aaron
+          desc: "Miscellaneous server scripts for archlinux.org"
+
+        # - repo: users/dieter/releng
+        #   owner: None
+        #   desc: "Arch-releng helper scripts"
+
+        # - repo: users/francois/perl-cpanplus-pacman
+        #   owner: None
+        #   desc: "CPANPLUS::Dist plugin to package CPAN modules for ..."
+
+        # - repo: users/francois/texlive-localmanager
+        #   owner: None
+        #   desc: "A shell and command-line utility to manage TeXLive..."
+
+        # - repo: users/francois/texlive-scripts
+        #   owner: None
+        #   desc: "Collection of scripts to manage the TeXLive packag..."
+
+        # - repo: users/mfm/abs
+        #   owner: None
+        #   desc: "Matt's ABS working tree"
+
+        # - repo: users/thayer/archweb-branding
+        #   owner: None
+        #   desc: "Arch Linux website branding repository"
+
+        # - repo: users/thayer/archweb
+        #   owner: None
+        #   desc: "Thayer's archweb working tree"
+
+        - repo: users/thomas/klibc
+          owner: thomas
+          desc: "Clone of the official klibc repository including m..."
+
+        - repo: vhosts/repos.archlinux.org
+          owner: thomas
+          desc: "WebSVN installation for repos.archlinux.org"
+
+    "archlinux.org vhosts":
+        - repo: vhosts/bbs.archlinux.org
+          owner: pierre
+          desc: "Arch customized FluxBB install"
+
+        # - repo: vhosts/bugs.archlinux.org
+        #   owner: None
+        #   desc: "Arch customized Flyspray installation"
+
+        - repo: vhosts/patchwork.archlinux.org
+          owner: dan
+          desc: "Unnamed repository; edit this file 'description' t..."
+
+        - repo: vhosts/planet.archlinux.org
+          owner: andrea
+          desc: "Arch customized Planet Venus installation"
+
+        - repo: vhosts/projects.archlinux.org
+          owner: lfleischer
+          desc: "cgit setup for Arch Linux projects"
+
+        - repo: vhosts/wiki.archlinux.org
+          owner: pierre
+          desc: "MediaWiki used on Arch Linux websites"

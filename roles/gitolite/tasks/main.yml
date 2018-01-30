@@ -1,0 +1,72 @@
+---
+#- name: install gitolite
+#  package: name=gitolite state=present
+
+- name: make git user
+  user: name={{gitolite_user}} home={{ git_path }}
+
+- name: install gitconfig
+  template: src=gitconfig.j2 dest={{ git_path }}/.gitconfig owner={{gitolite_user}} group={{gitolite_group}} mode=0600
+
+- name: install gitolite.rc
+  template: src=gitolite.rc.j2 dest={{ git_path }}/.gitolite.rc owner={{gitolite_user}} group={{gitolite_group}} mode=0600
+
+- name: generate gitolite-admin ssh key
+  become: true
+  become_user: '{{ gitolite_user }}'
+  command: ssh-keygen -b 4096 -N "" -f {{ git_path }}/id_rsa creates="{{ git_path }}/id_rsa"
+  register: adminkey
+
+- name: install gitolite
+  become: true
+  become_user: '{{ gitolite_user }}'
+  command: gitolite setup -pk {{ git_path }}/id_rsa.pub
+  when: adminkey.changed
+
+- name: clone gitolite-admin
+  become: true
+  become_user: '{{ gitolite_user }}'
+  git:
+    repo: '{{ git_path }}/repositories/gitolite-admin.git'
+    dest: '{{ git_path }}/gitolite-admin'
+
+- name: install gitolite.conf
+  template: src=gitolite.conf.j2 dest={{ git_path }}/gitolite-admin/conf/gitolite.conf owner={{ gitolite_user }} group={{ gitolite_group }} mode=0644
+  register: config
+
+- name: install gitolite access
+  copy:
+      src: '../pubkeys/{{ item.ssh_key }}.pub'
+      dest: '{{ git_path }}/gitolite-admin/keydir/{{ item.ssh_key }}.pub'
+      mode: 0640
+      owner: '{{ gitolite_user }}'
+      group: '{{ gitolite_group }}'
+  with_items: 
+     - "{{ arch_users }}"
+  when: item.ssh_key is defined
+  register: keys
+
+
+- name: add all files
+  become: true
+  become_user: '{{ gitolite_user }}'
+  command: git add . 
+  args:
+      chdir: '{{ git_path }}/gitolite-admin'
+  when: config.changed or keys.changed
+
+- name: commit gitolite config
+  become: true
+  become_user: '{{ gitolite_user }}'
+  command: git commit -am "Updated gitolite-admin by Ansible"
+  args:
+      chdir: '{{ git_path }}/gitolite-admin'
+  when: config.changed or keys.changed
+
+- name: push config
+  become: true
+  become_user: '{{ gitolite_user }}'
+  command: gitolite push
+  args:
+      chdir: '{{ git_path }}/gitolite-admin'
+  when: config.changed or keys.changed
