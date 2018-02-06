@@ -1,0 +1,31 @@
+#
+# git.archlinux.org cgit config
+#
+
+virtual-root=/
+
+root-title=Arch Linux git repositories
+root-desc=Git repositories hosted at archlinux.org
+
+logo=
+header=/srv/http/vhosts/git.archlinux.org/cgi-bin/header.html
+footer=/srv/http/vhosts/git.archlinux.org/cgi-bin/footer.html
+
+about-filter=/srv/http/vhosts/git.archlinux.org/cgi-bin/about-formatting.sh
+commit-filter=/srv/http/vhosts/git.archlinux.org/cgi-bin/arch-bugs-links.sh
+source-filter=/srv/http/vhosts/git.archlinux.org/cgi-bin/syntax-highlighting.sh
+
+enable-http-clone=1
+clone-prefix=https://{{cgit_domain}} git://{{cgit_domain}} ssh://{{cgit_domain}}
+
+snapshots=tar.gz tar.xz
+readme=:README.md
+readme=:README
+
+max-repo-count=250
+max-blob-size=2048
+max-repodesc-length=50
+max-stats=year
+
+enable-git-config=1
+scan-path=/srv/git

@@ -1,0 +1,7 @@
+---
+
+cgit_domain: git.archlinux.org
+cgit_path: /srv/cgit
+cgit_cgi_bin: /usr/lib/cgit/cgit.cgi
+cgit_user: cgit
+git_http_backend_path: /usr/lib/git-core/git-http-backend

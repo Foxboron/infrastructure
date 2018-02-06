@@ -1,0 +1,8 @@
+[uwsgi]
+plugins = cgi
+socket = /run/uwsgi/%n.sock
+chown-socket = http:http
+chmod-socket = 770
+threads = 2
+
+cgi = /srv/http/vhosts/git.archlinux.org/cgi-bin/cgit.cgi
