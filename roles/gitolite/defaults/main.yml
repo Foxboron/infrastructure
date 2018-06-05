@@ -1,6 +1,6 @@
 ---
 gitolite_user: git
 gitolite_group: git
-git_path: /srv/git
+git_repo_root_path: /srv/git
 git_name: DevOps
 git_email: webmaster@archlinux.org

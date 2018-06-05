@@ -6,299 +6,378 @@ gitolite_repos:
     "Arch Linux Projects":
         - repo: arch-install-scripts
           owner: dreisner
+          access: []
           desc: "Official arch-install-scripts repository"
 
         - repo: archboot
           owner: tpowa
+          access: []
           desc: "Repository for archboot"
 
         - repo: archiso
           owner: djgera
+          access: ['dan', 'aaron', 'thomas', 'pierre']
           desc: "The official archiso scripts repo"
 
         - repo: archlinux-keyring
           owner: pierre
+          access: ['eworm', 'bpiotrowski', 'jelle']
           desc: "Arch Linux PGP keyring"
 
         - repo: archweb
           owner: dan
+          access: ['aaron', 'pierre', 'thomas', 'foutrelis', 'angvp', 'bluewind', 'jelle']
           desc: "Arch website code"
 
-        # - repo: aurweb
-        #   owner: None
-        #   desc: "Arch User Repository (AUR)"
+        - repo: aurweb
+          owner: lfleischer
+          access: []
+          desc: "Arch User Repository (AUR)"
 
         - repo: dbscripts
           owner: pierre
+          access: ['aaron', 'dan', 'thomas', 'svenstaro', 'bpiotrowski', 'eschwartz']
           desc: "Official repo DB scripts"
 
         - repo: devtools
           owner: pierre
+          access: ['aaron', 'dan', 'thomas', 'allan', 'dreisner', 'foutrelis', 'svenstaro', 'heftig', 'bpiotrowski', 'seblu', 'anthraxx']
           desc: "The official devtools repository"
 
         - repo: infrastructure
           owner: svenstaro
+          access: ['bluewind', 'seblu', 'bpiotrowski', 'angvp', 'heftig', 'grazzolini', 'foutrelis', 'jelle', 'fukawi2']
           desc: "Ansible is coming"
 
         - repo: kde-build
           owner: felixonmars
+          access: ['pierre', 'andrea', 'svenstaro', 'arojas']
           desc: "KDE build scripts to automate package creation and..."
 
         - repo: mkinitcpio
           owner: dreisner
+          access: ['aaron', 'thomas', 'tpowa', 'foutrelis']
           desc: "The official mkinitcpio repository"
 
-        # - repo: namcap
-        #   owner: None
-        #   desc: "The official namcap repository"
+        - repo: namcap
+          owner: aaron
+          access: ['allan', 'dan', 'remy', 'kkeen']
+          desc: "The official namcap repository"
 
         - repo: netctl
           owner: jouke
+          access: []
           desc: "Network control utility based on systemd"
 
         - repo: pacman-contrib
           owner: demize
+          access: ['allan']
           desc: "The official pacman-contrib repository"
 
         - repo: pacman
           owner: allan
+          access: ['dan', 'aaron', 'dreisner', 'andrew']
           desc: "The official pacman repository"
 
         - repo: pyalpm
           owner: jelle
+          access: []
           desc: "Python 3 bindings for libalpm."
 
-        # - repo: srcpac
-        #   owner: None
-        #   desc: "The primary srcpac repository"
+        - repo: srcpac
+          owner: dan
+          access: ['allan', 'andrea']
+          desc: "The primary srcpac repository"
 
         # - repo: svntogit/community
         #   owner: None
+        #   access: []
         #   desc: "Git clone of the 'community' repository"
 
         # - repo: svntogit/packages
         #   owner: None
+        #   access: []
         #   desc: "Git clone of the 'packages' repository"
 
         - repo: tu-bylaws
           owner: lfleischer
+          access: []
           desc: "Trusted User Bylaws"
 
         - repo: wpa_actiond
           owner: thomas
+          access: ['andrea', 'remy', 'bluewind', 'bpiotrowski']
           desc: "Daemon that connects to wpa_supplicant and handles..."
 
     "Developer Projects":
         - repo: users/allan/pacman
           owner: allan
+          access: []
           desc: "Allan's pacman working tree"
+
+        - repo: users/eschwartz/arch-install-scripts
+          owner: eschwartz
+          access: []
+          desc: "Eli's arch-install-scripts working tree"
 
         - repo: users/eschwartz/pacman
           owner: eschwartz
+          access: []
           desc: "Eli's pacman working tree"
 
         - repo: users/lfleischer/cgit
           owner: lfleischer
+          access: []
           desc: "A hyperfast web frontend for git repositories writ..."
 
         - repo: users/remy/dbscripts
           owner: remy
+          access: []
           desc: "Personal clone of dbscripts repository."
 
         - repo: users/remy/namcap
           owner: remy
+          access: []
           desc: "Rémy's repository for namcap"
 
         - repo: users/remy/netcfg
           owner: remy
+          access: []
           desc: "Working branch for netcfg"
 
         - repo: users/remy/pacman
           owner: remy
+          access: []
           desc: "Rémy's working tree for pacman"
 
         - repo: users/remy/pacweb
           owner: remy
+          access: []
           desc: "A web front-end to pacman"
 
         - repo: users/remy/pyalpm
           owner: remy
+          access: []
           desc: "Python 3 bindings for libalpm."
 
         - repo: users/remy/texlive-localmanager
           owner: remy
+          access: []
           desc: "A shell and command-line utility to manage TeXLive..."
 
         - repo: users/remy/texlive-scripts
           owner: remy
+          access: []
           desc: "Collection of scripts to manage the TeXLive packag..."
 
         - repo: users/seblu/agetpkg
           owner: seblu
+          access: []
           desc: "Arch Linux Archive Get Package"
 
         - repo: users/seblu/ansible
           owner: seblu
+          access: []
           desc: "Deploy scripts for devops team"
 
         - repo: users/seblu/archivetools
           owner: seblu
+          access: []
           desc: "Arch Linux Archive Tools"
 
         - repo: users/seblu/archutils
           owner: seblu
+          access: []
           desc: "Seblu's collection of tools for Archlinux"
 
         - repo: users/seblu/archversion
           owner: seblu
+          access: []
           desc: "Check upstream version against Archlinux packages"
 
         - repo: users/seblu/aurbot
           owner: seblu
+          access: []
           desc: "AUR Builder Bot"
 
         - repo: users/seblu/kernel-install-poc
           owner: seblu
+          access: []
           desc: "kernel-install poc for Arch Linux"
 
         - repo: users/thomas/autowifi
           owner: thomas
+          access: []
           desc: "Unnamed repository; edit this file to name it for ..."
 
         - repo: users/thomas/capchroot
           owner: thomas
+          access: []
           desc: "A tool that allows users to chroot to certain dire..."
 
         - repo: users/thomas/capsudo
           owner: thomas
+          access: []
           desc: "A sudo-like tool to give capabilities to unprivile..."
 
         - repo: users/thomas/cgit
           owner: thomas
+          access: []
           desc: "Clone of the upstream cgit repository, with Arch L..."
 
         - repo: users/thomas/deinitramfs
           owner: thomas
+          access: []
           desc: "Experimental implementation of deinitramfs"
 
         - repo: users/thomas/pkgfile2
           owner: thomas
+          access: []
           desc: "Rewrite of pkgfile in C, using libarchive directly..."
 
         - repo: users/thomas/pkgtools
           owner: thomas
+          access: []
           desc: "Unnamed repository; edit this file 'description' t..."
 
         - repo: users/thomas/plasma-netgraph
           owner: thomas
+          access: []
           desc: "Plasma network monitor plasmoid, based on http://w..."
 
     "Obsolete or Dead Projects":
         - repo: abs
           owner: allan
+          access: ['dan', 'dreisner']
           desc: "Arch Build System scripts"
 
-        # - repo: aif
-        #   owner: None
-        #   desc: "AIF is the ArchLinux Installation Framework"
+        - repo: aif
+          owner: thomas
+          access: []
+          desc: "AIF is the ArchLinux Installation Framework"
 
-        # - repo: archweb_dev
-        #   owner: None
-        #   desc: "Arch dev site code"
+        - repo: archweb_dev
+          owner: aaron
+          access: ['dan', 'pierre', 'thomas', 'foutrelis', 'angvp', 'bluewind', 'jelle']
+          desc: "Arch dev site code"
 
-        # - repo: archweb_pub
-        #   owner: None
-        #   desc: "Arch main website code"
+        - repo: archweb_pub
+          owner: aaron
+          access: ['dan', 'pierre', 'thomas', 'foutrelis', 'angvp', 'bluewind', 'jelle']
+          desc: "Arch main website code"
 
         - repo: initscripts
           owner: tomegun
+          access: ['thomas', 'aaron', 'allan', 'dan']
           desc: "Arch Linux initscripts repository"
 
         - repo: installer
           owner: tpowa
+          access: ['dan', 'aaron']
           desc: "Arch Linux install scripts and docs"
 
         - repo: klibc-extras
           owner: thomas
+          access: ['aaron']
           desc: "The official klibc-extras repository"
 
         - repo: linux-2.6-ARCH
           owner: thomas
+          access: ['tpowa']
           desc: "Arch Linux kernel patch repository"
 
         - repo: mkinitcpio-nfs-utils
           owner: thomas
+          access: ['aaron', 'tpowa', 'dreisner', 'foutrelis']
           desc: "ipconfig and nfsmount tools for root on NFS, porte..."
 
-        # - repo: netcfg
-        #   owner: None
-        #   desc: "netcfg network scripts repository"
+        - repo: netcfg
+          owner: andrea
+          access: ['thomas', 'remy', 'bluewind', 'bpiotrowski']
+          desc: "netcfg network scripts repository"
 
         # - repo: pacbuild
         #   owner: None
+        #   access: []
         #   desc: "The official pacbuild repository"
 
         - repo: server-misc
           owner: aaron
+          access: []
           desc: "Miscellaneous server scripts for archlinux.org"
 
-        # - repo: users/dieter/releng
-        #   owner: None
-        #   desc: "Arch-releng helper scripts"
+        - repo: users/dieter/releng
+          owner: thomas
+          access: []
+          desc: "Arch-releng helper scripts"
 
         # - repo: users/francois/perl-cpanplus-pacman
         #   owner: None
+        #   access: []
         #   desc: "CPANPLUS::Dist plugin to package CPAN modules for ..."
 
         # - repo: users/francois/texlive-localmanager
         #   owner: None
+        #   access: []
         #   desc: "A shell and command-line utility to manage TeXLive..."
 
         # - repo: users/francois/texlive-scripts
         #   owner: None
+        #   access: []
         #   desc: "Collection of scripts to manage the TeXLive packag..."
 
         # - repo: users/mfm/abs
         #   owner: None
+        #   access: []
         #   desc: "Matt's ABS working tree"
 
         # - repo: users/thayer/archweb-branding
         #   owner: None
+        #   access: []
         #   desc: "Arch Linux website branding repository"
 
         # - repo: users/thayer/archweb
         #   owner: None
+        #   access: []
         #   desc: "Thayer's archweb working tree"
 
         - repo: users/thomas/klibc
           owner: thomas
+          access: []
           desc: "Clone of the official klibc repository including m..."
 
         - repo: vhosts/repos.archlinux.org
           owner: thomas
+          access: []
           desc: "WebSVN installation for repos.archlinux.org"
 
     "archlinux.org vhosts":
         - repo: vhosts/bbs.archlinux.org
           owner: pierre
+          access: ['andrea', 'dan', 'thomas', 'bluewind']
           desc: "Arch customized FluxBB install"
 
-        # - repo: vhosts/bugs.archlinux.org
-        #   owner: None
-        #   desc: "Arch customized Flyspray installation"
+        - repo: vhosts/bugs.archlinux.org
+          owner: jgc
+          access: ['pierre', 'dan', 'foutrelis', 'grazzolini', 'bluewind', 'jelle']
+          desc: "Arch customized Flyspray installation"
 
         - repo: vhosts/patchwork.archlinux.org
           owner: dan
+          access: []
           desc: "Unnamed repository; edit this file 'description' t..."
 
         - repo: vhosts/planet.archlinux.org
           owner: andrea
+          access: ['bpiotrowski', 'svenstaro', 'bluewind']
           desc: "Arch customized Planet Venus installation"
 
         - repo: vhosts/projects.archlinux.org
           owner: lfleischer
+          access: ['seblu', 'bluewind']
           desc: "cgit setup for Arch Linux projects"
 
         - repo: vhosts/wiki.archlinux.org
           owner: pierre
+          access: ['thomas', 'bluewind', 'bpiotrowski']
           desc: "MediaWiki used on Arch Linux websites"

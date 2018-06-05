@@ -2,9 +2,8 @@ server {
     listen 80;
     server_name {{cgit_domain}};
 
-    keepalive_timeout 70;
-    access_log /var/log/nginx/{{cgit_domain}}/access.log;
-    error_log /var/log/nginx/{{cgit_domain}}/error.log;
+    access_log off;
+    error_log off;
     include snippets/letsencrypt.conf;
 
     location / {
@@ -16,9 +15,9 @@ server {
     listen 443 ssl;
     server_name {{cgit_domain}};
 
-    keepalive_timeout 70;
-    access_log /var/log/nginx/{{cgit_domain}}/access.log;
-    error_log /var/log/nginx/{{cgit_domain}}/error.log;
+    access_log /var/log/nginx/{{cgit_domain}}/access.log reduced;
+    error_log /var/log/nginx/{{cgit_domain}}/error.log reduced;
+
     ssl_certificate      /etc/letsencrypt/live/{{cgit_domain}}/fullchain.pem;
     ssl_certificate_key  /etc/letsencrypt/live/{{cgit_domain}}/privkey.pem;
     ssl_trusted_certificate /etc/letsencrypt/live/{{cgit_domain}}/chain.pem;
@@ -29,11 +28,13 @@ server {
     try_files             $uri @cgit;
 
     location ~ /git(/.*) {
+        access_log /var/log/nginx/{{cgit_domain}}/access.log main;
+
         include             fastcgi_params;
 
         fastcgi_param SCRIPT_FILENAME     {{git_http_backend_path}};
         fastcgi_param GIT_HTTP_EXPORT_ALL "";
-        fastcgi_param GIT_PROJECT_ROOT    {{git_path}};
+        fastcgi_param GIT_PROJECT_ROOT    {{git_repo_root_path}};
 
         fastcgi_param       PATH_INFO       $uri;
         fastcgi_param       QUERY_STRING    $args;
@@ -42,6 +43,8 @@ server {
     }
 
     location @cgit {
+        access_log /var/log/nginx/{{cgit_domain}}/access.log main;
+
         fastcgi_param       SCRIPT_FILENAME {{cgit_cgi_bin}}/cgit.cgi;
         fastcgi_param       PATH_INFO       $uri;
         fastcgi_param       QUERY_STRING    $args;
