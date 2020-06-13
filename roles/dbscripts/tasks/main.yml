@@ -1,13 +1,12 @@
 ---
 
-- name: install svn, git, rsync and some perl stuff
-  pacman: name=git,subversion,rsync,perl-dbd-pg,perl-timedate,diffstat state=present
+- name: install git, rsync and some perl stuff
+  pacman: name=git,rsync,perl-dbd-pg,perl-timedate,diffstat state=present
 
 - name: create dbscripts users
   user: name="{{ item }}" shell=/bin/bash
   with_items:
-    - svn-packages
-    - svn-community
+    - git-packages
 
 - name: add cleanup user
   user: name=cleanup groups=tu,dev,multilib shell=/sbin/nologin
@@ -15,26 +14,29 @@
 - name: add sourceballs user
   user: name=sourceballs shell=/sbin/nologin
 
+- name: create sudoers.d path
+  file: path=/etc/sudoers.d state=directory owner=root group=root mode=0600
+
 - name: set up sudoers.d for special users
   copy: src=sudoers.d dest=/etc/sudoers.d/dbscripts owner=root group=root mode=0600
 
-- name: create ssl cert
-  command: certbot certonly --email webmaster@archlinux.org --agree-tos --rsa-key-size 4096 --renew-by-default --webroot -w {{letsencrypt_validation_dir}} -d '{{ repos_domain }}' creates='/etc/letsencrypt/live/{{ repos_domain }}/fullchain.pem'
+# - name: create ssl cert
+#   command: certbot certonly --email morten@linderud.pw --agree-tos --rsa-key-size 4096 --renew-by-default --webroot -w {{letsencrypt_validation_dir}} -d '{{ repos_domain }}' creates='/etc/letsencrypt/live/{{ repos_domain }}/fullchain.pem'
 
-- name: make nginx log dir
-  file: path=/var/log/nginx/{{ repos_domain }} state=directory owner=root group=root mode=0755
+# - name: make nginx log dir
+#   file: path=/var/log/nginx/{{ repos_domain }} state=directory owner=root group=root mode=0755
 
-- name: set up nginx
-  template: src=nginx.d.conf.j2 dest=/etc/nginx/nginx.d/dbscripts.conf owner=root group=root mode=0644
-  notify:
-    - reload nginx
-  tags:
-    - nginx
+# - name: set up nginx
+#   template: src=nginx.d.conf.j2 dest=/etc/nginx/nginx.d/dbscripts.conf owner=root group=root mode=0644
+#   notify:
+#     - reload nginx
+#   tags:
+#     - nginx
 
-- name: put dbscripts.htpasswd in place
-  copy: src=dbscripts.htpasswd dest=/etc/nginx/auth/dbscripts.htpasswd owner=root group=http mode=0640
-  tags:
-    - nginx
+# - name: put dbscripts.htpasswd in place
+#   copy: src=dbscripts.htpasswd dest=/etc/nginx/auth/dbscripts.htpasswd owner=root group=http mode=0640
+#   tags:
+#     - nginx
 
 - name: create Arch Linux-specific users
   user:
@@ -45,17 +47,11 @@
     state: present
   with_dict: "{{ arch_users }}"
 
-- name: configure ssh keys for devs
-  template: src=authorized_keys-group.j2 dest=/home/svn-packages/.ssh/authorized_keys owner=svn-packages group=svn-packages mode=600
-  vars:
-    pubkey_groups: ['dev']
-  tags: ['archusers']
-
-- name: configure ssh keys for TUs
-  template: src=authorized_keys-group.j2 dest=/home/svn-community/.ssh/authorized_keys owner=svn-community group=svn-community mode=600
-  vars:
-    pubkey_groups: ['tu']
-  tags: ['archusers']
+# - name: configure ssh keys for devs
+#   template: src=authorized_keys-group.j2 dest=/home/git-packages/.ssh/authorized_keys owner=git-packages group=git-packages mode=600
+#   vars:
+#     pubkey_groups: ['dev', 'tu']
+#   tags: ['archusers']
 
 - name: create staging directories in user homes
   dbscripts_mkdirs:
@@ -69,41 +65,24 @@
 - name: create dbscripts paths
   file: path="{{ item }}" state=directory
   with_items:
-    - /srv/repos/svn-community
-    - /srv/repos/svn-packages
+    - /srv/repos/git-packages
 
-- file: path="/srv/repos/svn-community/package-cleanup" state=directory owner=svn-community group=tu mode=0775
-- acl: name=/srv/repos/svn-community/package-cleanup entry="user:cleanup:rwx" state=present
-- acl: name=/srv/repos/svn-community/package-cleanup entry="default:user::rwx" state=present
-- acl: name=/srv/repos/svn-community/package-cleanup entry="default:user:cleanup:rwx" state=present
-- acl: name=/srv/repos/svn-community/package-cleanup entry="default:group::rwx" state=present
-- acl: name=/srv/repos/svn-community/package-cleanup entry="default:other::r-x" state=present
+- file: path="/srv/repos/git-packages/package-cleanup" state=directory owner=git-packages group=users mode=0775
+- acl: name=/srv/repos/git-packages/package-cleanup entry="user:cleanup:rwx" state=present
+- acl: name=/srv/repos/git-packages/package-cleanup entry="default:user::rwx" state=present
+- acl: name=/srv/repos/git-packages/package-cleanup entry="default:user:cleanup:rwx" state=present
+- acl: name=/srv/repos/git-packages/package-cleanup entry="default:group::rwx" state=present
+- acl: name=/srv/repos/git-packages/package-cleanup entry="default:other::r-x" state=present
 
-- file: path="/srv/repos/svn-packages/package-cleanup" state=directory owner=svn-packages group=dev mode=0775
-- acl: name=/srv/repos/svn-packages/package-cleanup entry="user:cleanup:rwx" state=present
-- acl: name=/srv/repos/svn-packages/package-cleanup entry="default:user::rwx" state=present
-- acl: name=/srv/repos/svn-packages/package-cleanup entry="default:user:cleanup:rwx" state=present
-- acl: name=/srv/repos/svn-packages/package-cleanup entry="default:group::rwx" state=present
-- acl: name=/srv/repos/svn-packages/package-cleanup entry="default:other::r-x" state=present
+- file: path="/srv/repos/git-packages/source-cleanup" state=directory owner=sourceballs group=git-packages mode=0755
 
-- file: path="/srv/repos/svn-community/source-cleanup" state=directory owner=sourceballs group=svn-community mode=0755
-- file: path="/srv/repos/svn-packages/source-cleanup" state=directory owner=sourceballs group=svn-packages mode=0755
+# - file: path="/srv/repos/git-packages/svn" state=directory owner=git-packages group=git-packages mode=0755
+# - acl: name=/srv/repos/git-packages/svn entry="default:user::rwx" state=present
+# - acl: name=/srv/repos/git-packages/svn entry="default:group::r-x" state=present
+# - acl: name=/srv/repos/git-packages/svn entry="default:other::r-x" state=present
 
-- file: path="/srv/repos/svn-community/svn" state=directory owner=svn-community group=svn-community mode=0755
-- acl: name=/srv/repos/svn-community/svn entry="default:user::rwx" state=present
-- acl: name=/srv/repos/svn-community/svn entry="default:group::r-x" state=present
-- acl: name=/srv/repos/svn-community/svn entry="default:other::r-x" state=present
-
-- file: path="/srv/repos/svn-packages/svn" state=directory owner=svn-packages group=svn-packages mode=0755
-- acl: name=/srv/repos/svn-packages/svn entry="default:user::rwx" state=present
-- acl: name=/srv/repos/svn-packages/svn entry="default:group::r-x" state=present
-- acl: name=/srv/repos/svn-packages/svn entry="default:other::r-x" state=present
-
-- file: path="/srv/repos/svn-community/tmp" state=directory owner=svn-community group=tu mode=1775
-- acl: name=/srv/repos/svn-community/tmp entry="user:sourceballs:rwx" state=present
-
-- file: path="/srv/repos/svn-packages/tmp" state=directory owner=svn-packages group=dev mode=1775
-- acl: name=/srv/repos/svn-packages/tmp entry="user:sourceballs:rwx" state=present
+- file: path="/srv/repos/git-packages/tmp" state=directory owner=git-packages group=users mode=1775
+- acl: name=/srv/repos/git-packages/tmp entry="user:sourceballs:rwx" state=present
 
 - file: path="/srv/ftp/lastsync" state=touch owner=ftp group=ftp mode=0644
 
@@ -114,134 +93,40 @@
 - name: clone dbscripts git repo
   git: >
     dest=/srv/repos/{{ item }}/dbscripts
-    repo=https://git.archlinux.org/dbscripts.git
+    repo=https://github.com/Foxboron/dbscripts.git
     version={{ dbscripts_commit }} update={{ dbscripts_update }}
-    verify_commit=yes
   with_items:
-    - svn-community
-    - svn-packages
+    - git-packages
 
-- name: make /srv/svn
-  file: path=/srv/svn state=directory
+- name: symlink /packages to /srv/repos/git-packages/dbscripts
+  file: path=/packages src=/srv/repos/git-packages/dbscripts state=link
 
-- name: symlink /srv/svn/community to /srv/repos/svn-community/svn
-  file: path=/srv/svn/community src=/srv/repos/svn-community/svn state=link
+# - name: put rsyncd.conf into tmpfiles
+#   copy: src=rsyncd-tmpfiles.d dest=/etc/tmpfiles.d/rsyncd.conf owner=root group=root mode=0644
+#   register: rsyncdtmpfiles
 
-- name: symlink /srv/svn/packages to /srv/repos/svn-packages/svn
-  file: path=/srv/svn/packages src=/srv/repos/svn-packages/svn state=link
+# - name: use tmpfiles.d/rsyncd.conf
+#   command: systemd-tmpfiles --create
+#   when: rsyncdtmpfiles.changed
 
-- name: symlink /community to /srv/repos/svn-community/dbscripts
-  file: path=/community src=/srv/repos/svn-community/dbscripts state=link
+# - name: create rsyncd-conf-genscripts
+#   file: path=/etc/rsyncd-conf-genscripts state=directory owner=root group=root mode=0700
 
-- name: symlink /packages to /srv/repos/svn-packages/dbscripts
-  file: path=/packages src=/srv/repos/svn-packages/dbscripts state=link
+# - name: install rsync.conf.proto
+#   template: src=rsyncd.conf.proto.j2 dest=/etc/rsyncd-conf-genscripts/rsyncd.conf.proto owner=root group=root mode=0644
 
-- name: put rsyncd.conf into tmpfiles
-  copy: src=rsyncd-tmpfiles.d dest=/etc/tmpfiles.d/rsyncd.conf owner=root group=root mode=0644
-  register: rsyncdtmpfiles
+# - name: configure gen_rsyncd.conf.pl
+#   template: src=gen_rsyncd.conf.pl dest=/etc/rsyncd-conf-genscripts/gen_rsyncd.conf.pl owner=root group=root mode=0700
+#   no_log: true
 
-- name: use tmpfiles.d/rsyncd.conf
-  command: systemd-tmpfiles --create
-  when: rsyncdtmpfiles.changed
-
-- name: create rsyncd-conf-genscripts
-  file: path=/etc/rsyncd-conf-genscripts state=directory owner=root group=root mode=0700
-
-- name: install rsync.conf.proto
-  template: src=rsyncd.conf.proto.j2 dest=/etc/rsyncd-conf-genscripts/rsyncd.conf.proto owner=root group=root mode=0644
-
-- name: configure gen_rsyncd.conf.pl
-  template: src=gen_rsyncd.conf.pl dest=/etc/rsyncd-conf-genscripts/gen_rsyncd.conf.pl owner=root group=root mode=0700
-  no_log: true
-
-- name: generate mirror config
-  command: /etc/rsyncd-conf-genscripts/gen_rsyncd.conf.pl
-
-- name: install svnlog
-  copy: src=svnlog dest=/usr/local/bin/svnlog owner=root group=root mode=0755
-
-- name: add arch-svntogit user
-  user: name=svntogit shell=/sbin/nologin home=/srv/svntogit generate_ssh_key=yes ssh_key_bits=4096
-
-- name: configure svntogit git user name
-  command: git config --global user.name = 'svntogit'
-  become: yes
-  become_user: svntogit
-
-- name: configure svntogit git user email
-  command: git config --global user.name = 'svntogit@repos.archlinux.org'
-  become: yes
-  become_user: svntogit
-
-- name: template arch-svntogit
-  copy: src=update-repos.sh dest=/srv/svntogit/update-repos.sh owner=root group=root mode=0755
-
-- name: create svntogit repos subdir
-  file: path="/srv/svntogit/repos" state=directory owner=svntogit group=svntogit mode=0775
-
-- name: clone git-svn repos
-  command: git svn clone file:///srv/repos/svn-{{ item }}/svn /srv/svntogit/repos/{{ item }} creates=/srv/svntogit/repos/{{ item }}
-  with_items:
-    - community
-    - packages
-  become: yes
-  become_user: svntogit
-
-- name: add svntogit public remotes
-  command: git remote add public ssh://git.archlinux.org/srv/git/svntogit/{{ item }}.git chdir=/srv/svntogit/repos/{{ item }}
-  with_items:
-    - community
-    - packages
-  become: yes
-  become_user: svntogit
-  ignore_errors: yes
-
-  # The following command also serves as a way to get the data the first time the repo is set up
-- name: configure svntogit pull upstream branch
-  command: git pull public master chdir=/srv/svntogit/repos/{{ item }}
-  with_items:
-    - community
-    - packages
-  become: yes
-  become_user: svntogit
-
-- name: configure svntogit push upstream branch
-  command: git push -u public master chdir=/srv/svntogit/repos/{{ item }}
-  with_items:
-    - community
-    - packages
-  become: yes
-  become_user: svntogit
-
-- name: fix svntogit home permissions
-  file: path="/srv/svntogit" state=directory owner=svntogit group=svntogit mode=0775
+# - name: generate mirror config
+#   command: /etc/rsyncd-conf-genscripts/gen_rsyncd.conf.pl
 
 - name: install repo helpers
   copy: src={{ item }} dest=/usr/local/bin/{{ item }} owner=root group=root mode=0755
   with_items:
     - lsrepo
     - checklib32
-
-- name: start and enable rsync
-  service: name=rsyncd.socket enabled=yes state=started
-
-- name: open firewall holes for rsync
-  firewalld: service=rsyncd permanent=true state=enabled immediate=yes
-  when: configure_firewall
-  tags:
-    - firewall
-
-- name: configure svnserve
-  copy: dest=/etc/conf.d/svnserve content="SVNSERVE_ARGS=-R -r /srv/svn\n"
-
-- name: start and enable svnserve
-  service: name=svnserve enabled=yes state=started
-
-- name: open firewall holes for svnserve
-  firewalld: port=3690/tcp permanent=true state=enabled immediate=yes
-  when: configure_firewall
-  tags:
-    - firewall
 
 - name: install systemd timers
   copy: src={{ item }} dest=/etc/systemd/system/{{ item }} owner=root group=root mode=0644
@@ -252,10 +137,6 @@
     - sourceballs.service
     - lastsync.timer
     - lastsync.service
-    - gen_rsyncd.timer
-    - gen_rsyncd.service
-    - arch-svntogit.timer
-    - arch-svntogit.service
   notify:
     - daemon reload
 
@@ -265,5 +146,3 @@
     - cleanup.timer
     - sourceballs.timer
     - lastsync.timer
-    - gen_rsyncd.timer
-    - arch-svntogit.timer

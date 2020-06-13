@@ -1,11 +1,7 @@
-%dev ALL=(svn-packages) NOPASSWD:/usr/bin/svnserve
-%dev ALL=(svn-packages) NOPASSWD:/usr/bin/svn
-#%dev ALL=(svn-community) NOPASSWD:/usr/bin/svnserve
-%tu ALL=(svn-community) NOPASSWD:/usr/bin/svnserve
-%tu ALL=(svn-community) NOPASSWD:/usr/bin/svn
+%dev ALL=(git-packages) NOPASSWD:/usr/bin/git
+%tu ALL=(git-packages) NOPASSWD:/usr/bin/git
 
 %dev ALL = (archive) NOPASSWD: /packages/db-archive
-%tu  ALL = (archive) NOPASSWD: /community/db-archive
+%tu  ALL = (archive) NOPASSWD: /packages/db-archive
 
-sourceballs ALL=(svn-community) NOPASSWD:/usr/bin/svn
-sourceballs ALL=(svn-packages) NOPASSWD:/usr/bin/svn
+sourceballs ALL=(git-packages) NOPASSWD:/usr/bin/git
